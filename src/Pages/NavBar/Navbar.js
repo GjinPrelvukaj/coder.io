@@ -1,6 +1,8 @@
 import { Navbar, Button, Link, Text } from "@nextui-org/react";
 import { Layout } from "./Layout.js";
 import web_logo from "./logo.png";
+import Login from "../Auth/Login/Login.js";
+import Register from "../Auth/Register/Login.js";
 
 export default function App() {
   const collapseItems = [
@@ -35,12 +37,10 @@ export default function App() {
         </Navbar.Content>
         <Navbar.Content>
           <Navbar.Link color="inherit" href="#">
-            Login
+            <Register />
           </Navbar.Link>
           <Navbar.Item>
-            <Button auto flat as={Link} href="#">
-              Join Now
-            </Button>
+            <Login />
           </Navbar.Item>
         </Navbar.Content>
         <Navbar.Collapse>
