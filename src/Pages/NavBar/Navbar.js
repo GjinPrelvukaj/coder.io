@@ -1,18 +1,18 @@
 import { Navbar, Button, Link, Text } from "@nextui-org/react";
 import { Layout } from "./Layout.js";
-import { AcmeLogo } from "./AcmeLogo.js";
+import web_logo from "./logo.png";
 
 export default function App() {
   const collapseItems = [
-    "Features",
-    "Customers",
-    "Pricing",
-    "Company",
-    "Legal",
-    "Team",
-    "Help & Feedback",
-    "Login",
-    "Sign Up",
+    "Home",
+    "Members",
+    "Communities",
+    "About Us",
+    "Terms and Conditions",
+    "Contact Us",
+    "Help Center",
+    "Log In",
+    "Join Now",
   ];
 
   return (
@@ -20,18 +20,18 @@ export default function App() {
       <Navbar isBordered variant="sticky">
         <Navbar.Brand>
           <Navbar.Toggle aria-label="toggle navigation" />
-          <AcmeLogo />
+          <img src={web_logo} height={"35"} />
           <Text b color="inherit" hideIn="xs">
-            ACME
+            coders.io
           </Text>
         </Navbar.Brand>
         <Navbar.Content enableCursorHighlight hideIn="xs" variant="underline">
-          <Navbar.Link href="#">Features</Navbar.Link>
+          <Navbar.Link href="#">Explore</Navbar.Link>
           <Navbar.Link isActive href="#">
-            Customers
+            Home
           </Navbar.Link>
-          <Navbar.Link href="#">Pricing</Navbar.Link>
-          <Navbar.Link href="#">Company</Navbar.Link>
+          <Navbar.Link href="#">Search</Navbar.Link>
+          <Navbar.Link href="#">Profile</Navbar.Link>
         </Navbar.Content>
         <Navbar.Content>
           <Navbar.Link color="inherit" href="#">
@@ -39,7 +39,7 @@ export default function App() {
           </Navbar.Link>
           <Navbar.Item>
             <Button auto flat as={Link} href="#">
-              Sign Up
+              Join Now
             </Button>
           </Navbar.Item>
         </Navbar.Content>
