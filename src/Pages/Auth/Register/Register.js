@@ -3,7 +3,7 @@ import { Modal, Input, Row, Button, Text } from "@nextui-org/react";
 import { Mail } from "./Mail";
 import { Password } from "./Password";
 
-export default function Login() {
+export default function Register() {
   const [visible, setVisible] = React.useState(false);
   const handler = () => setVisible(true);
   const closeHandler = () => {
@@ -13,13 +13,17 @@ export default function Login() {
 
   // State variables to store form data and validation errors
   const [formData, setFormData] = React.useState({
-    identifier: "",
+    email: "",
+    username: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = React.useState({
-    identifier: "",
+    email: "",
+    username: "",
     password: "",
+    confirmPassword: "",
   });
 
   // Form validation logic
@@ -27,7 +31,7 @@ export default function Login() {
     let isValid = true;
     const newErrors = { ...errors };
 
-    // Check if both fields are filled
+    // Check if all fields are filled
     for (const key in formData) {
       if (formData[key] === "") {
         newErrors[key] = "This field is required";
@@ -37,16 +41,45 @@ export default function Login() {
       }
     }
 
+    // Check if the email is valid
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Invalid email address";
+      isValid = false;
+    }
+
+    // Check if the password and confirm password match
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+      isValid = false;
+    }
+
     setErrors(newErrors);
     return isValid;
   };
 
-  // Handle form submission
-  const handleLogin = () => {
-    const isValid = validateForm();
+  // Handle registration submission
+  const handleRegister = async () => {
+    try {
+      const response = await fetch("http://localhost:5001/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (isValid) {
-      console.log("Form Data:", formData);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      const userData = await response.json();
+      console.log("Registered user data:", userData);
+
+      // You can handle the successful registration response here
+    } catch (error) {
+      console.error("Registration error:", error.message);
+      // You can handle the registration error here
     }
   };
 
@@ -58,7 +91,7 @@ export default function Login() {
   return (
     <div>
       <Button auto color="secondary" shadow onPress={handler}>
-        Login
+        Register
       </Button>
       <Modal
         closeButton
@@ -69,7 +102,7 @@ export default function Login() {
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>
-            Welcome to
+            Register at
             <Text b size={18}>
               <br />
               coders.io
@@ -83,11 +116,23 @@ export default function Login() {
             fullWidth
             color="primary"
             size="lg"
-            placeholder="Email or Username"
-            value={formData.identifier}
-            onChange={(e) => handleInputChange("identifier", e.target.value)}
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) => handleInputChange("email", e.target.value)}
             contentLeft={<Mail fill="currentColor" />}
-            error={errors.identifier}
+            error={errors.email}
+          />
+          <Input
+            clearable
+            bordered
+            fullWidth
+            color="primary"
+            size="lg"
+            placeholder="Username"
+            value={formData.username}
+            onChange={(e) => handleInputChange("username", e.target.value)}
+            contentLeft={<Mail fill="currentColor" />}
+            error={errors.username}
           />
           <Input
             clearable
@@ -102,6 +147,21 @@ export default function Login() {
             contentLeft={<Password fill="currentColor" />}
             error={errors.password}
           />
+          <Input
+            clearable
+            bordered
+            fullWidth
+            color="primary"
+            size="lg"
+            placeholder="Confirm Password"
+            type="password"
+            value={formData.confirmPassword}
+            onChange={(e) =>
+              handleInputChange("confirmPassword", e.target.value)
+            }
+            contentLeft={<Password fill="currentColor" />}
+            error={errors.confirmPassword}
+          />
           <Row justify="space-between">
             <Text size={14}>Existing User?</Text>
           </Row>
@@ -110,8 +170,8 @@ export default function Login() {
           <Button auto flat color="error" onPress={closeHandler}>
             Close
           </Button>
-          <Button auto onPress={handleLogin}>
-            Login
+          <Button auto onPress={handleRegister}>
+            Register
           </Button>
         </Modal.Footer>
       </Modal>

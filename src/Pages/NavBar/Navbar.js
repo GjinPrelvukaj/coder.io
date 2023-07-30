@@ -2,7 +2,7 @@ import { Navbar, Button, Link, Text } from "@nextui-org/react";
 import { Layout } from "./Layout.js";
 import web_logo from "./logo.png";
 import Login from "../Auth/Login/Login.js";
-import Register from "../Auth/Register/Login.js";
+import Register from "../Auth/Register/Register.js";
 
 export default function App() {
   const collapseItems = [

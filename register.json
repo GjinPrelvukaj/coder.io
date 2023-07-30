@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "username": "gjin",
+    "email": "gjin",
+    "password": "gjin"
+  },
+  {
+    "id": 2,
+    "username": "awdawd",
+    "email": "wda",
+    "password": "awdawd"
+  },
+  {
+    "id": 3,
+    "username": "awdawd2",
+    "email": "wda2",
+    "password": "$2b$10$vfc9R8r10KmdlGkEPiXK8.VowE5OUYr1eWdid5tcT21Doxu1/X2de"
+  },
+  {
+    "id": 4,
+    "username": "gjini",
+    "email": "gjini@gmail.com",
+    "password": "$2b$10$grnLS/YwToTE.bd94gQ1WOIEbWj.7mRFoEi.Ke287JdSmP4YpxUc."
+  }
+]

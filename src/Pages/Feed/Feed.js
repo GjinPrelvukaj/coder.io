@@ -11,12 +11,14 @@ const api = axios.create({
 const Feed = () => {
   const [feedbackText, setFeedbackText] = useState("");
   const [userFeedbacks, setUserFeedbacks] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
+  const [username, setUsername] = useState(""); // Store the username
 
   const handleSubmit = () => {
     if (feedbackText.trim() !== "") {
       const newFeedback = {
         initialValue: feedbackText,
-        name: "New User",
+        name: isLoggedIn ? username : "New User",
         avatarSrc: "https://i.pravatar.cc/300?u=newuser",
         timestamp: new Date().toLocaleString("en-US", {
           day: "2-digit",
@@ -46,6 +48,16 @@ const Feed = () => {
           );
         });
     }
+  };
+
+  const handleLoginSuccess = (username) => {
+    setIsLoggedIn(true); // Set the login status to true
+    setUsername(username); // Store the username
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Set the login status to false
+    setUsername(""); // Clear the stored username on logout
   };
 
   return (
